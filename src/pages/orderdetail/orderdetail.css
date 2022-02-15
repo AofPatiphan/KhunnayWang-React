@@ -25,7 +25,7 @@
 
 .detail {
     color: #120d2670;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .sublist {
@@ -33,4 +33,63 @@
     margin-left: 30px;
     display: flex;
     gap: 20px;
+}
+
+.paymentdetail {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 70px;
+    padding-left: 30px;
+}
+
+.checkbutton {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    background-color: #e2e2e2;
+    border-radius: 50%;
+}
+.checkedbutton {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    background-color: #738c72;
+    border-radius: 50%;
+}
+
+.backgroundslider {
+    width: 100%;
+    height: 5px;
+    border-radius: 15px;
+    background-color: #738c7240;
+    margin-bottom: 10px;
+}
+
+.slider {
+    height: 5px;
+    border-radius: 15px;
+    background-color: #738c72;
+}
+
+.statusicon {
+    font-size: 24px;
+}
+
+.statuslabel {
+    font-size: 12px;
+}
+
+.headerordertracking {
+    color: #849a83;
+    margin: 5px 0;
 }

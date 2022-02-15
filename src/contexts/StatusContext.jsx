@@ -8,6 +8,28 @@ function StatusContextProvider(props) {
     const [docsDetail, setDocsDetail] = useState([]);
     const [user, setUser] = useState('');
 
+    const testData = {
+        number: 1,
+        date: new Date(),
+        brand: 'Iphone',
+        description: {
+            for: 'WYB',
+            type: 'โทรศัพท์',
+            color: 'แดง',
+            quantity: '1 Ea',
+        },
+        payment: {
+            amount: { price: 40000, status: true },
+            tax: { price: 400, status: true },
+        },
+        status: 4,
+        trackingNumber: 'TH2395234234',
+        remark: 'remark',
+        createdAt: timestamp(),
+        userId: '2bfS3EPU3d5XyzU4wutd',
+    };
+    // projectFirestore.collection('order').add(testData);
+
     const fetchStatus = async () => {
         let userIdTemp = '';
 
