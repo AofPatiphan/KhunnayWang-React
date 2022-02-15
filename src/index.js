@@ -7,10 +7,13 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import StatusContextProvider from './contexts/StatusContext';
 
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <StatusContextProvider>
+            <App />
+        </StatusContextProvider>
     </BrowserRouter>,
     document.getElementById('root')
 );

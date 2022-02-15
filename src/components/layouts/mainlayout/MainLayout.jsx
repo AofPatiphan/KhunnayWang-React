@@ -15,7 +15,7 @@ function MainLayout() {
                         className="bi bi-arrow-left ps-4"
                         onClick={() => navigate('/')}
                     ></i>
-                ) : location.pathname === '/detail' ? (
+                ) : location.pathname.includes('/detail') ? (
                     <i
                         className="bi bi-arrow-left ps-4"
                         onClick={() => navigate('/status')}

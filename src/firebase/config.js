@@ -9,12 +9,12 @@ const firebaseConfig = {
     projectId: 'khunnaywang-7ee93',
     storageBucket: 'khunnaywang-7ee93.appspot.com',
     messagingSenderId: '106591818587',
-    appId: '1:106591818587:ios:5e6eeb13ee7d037ae3c07e',
+    appId: '1:106591818587:web:5e6eeb13ee7d037ae3c07e',
 };
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+// if (!firebase.apps.length) {
+firebase.initializeApp(firebaseConfig);
+// }
 
 const projectFirestore = firebase.firestore();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;

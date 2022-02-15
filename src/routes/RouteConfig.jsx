@@ -8,7 +8,7 @@ import OrderDetail from '../pages/orderdetail/OrderDetail';
 const routes = [
     { path: '/', element: <Home /> },
     { path: '/status', element: <Status /> },
-    { path: '/detail', element: <OrderDetail /> },
+    { path: '/detail/:trackingNumber', element: <OrderDetail /> },
     { path: '*', element: <Navigate to="/" replace={true} /> },
 ];
 
