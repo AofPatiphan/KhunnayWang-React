@@ -77,7 +77,7 @@ function OrderDetail() {
                     <div className="paymentdetail">
                         <div>Amount</div>
                         <div className="d-flex">
-                            <div>{docsDetail?.payment?.amount?.price}</div>
+                            <div>{docsDetail?.payment?.amount?.price} ฿</div>
                             <div
                                 className={
                                     docsDetail?.payment?.amount?.status
@@ -95,7 +95,7 @@ function OrderDetail() {
                     <div className="paymentdetail">
                         <div>freight</div>
                         <div className="d-flex">
-                            <div>{docsDetail?.payment?.tax?.price}</div>
+                            <div>{docsDetail?.payment?.tax?.price} ฿</div>
                             <div
                                 className={
                                     docsDetail?.payment?.tax?.status

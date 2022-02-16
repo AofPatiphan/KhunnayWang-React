@@ -27,11 +27,19 @@ function MainLayout() {
                             navigate('/status');
                         }}
                     ></i>
-                ) : location.pathname.includes('/admin') ? (
+                ) : location.pathname === '/admin' ? (
                     <i
                         className="bi bi-arrow-left ps-4"
                         onClick={() => {
                             navigate('/status');
+                            fetchStatusAdmin();
+                        }}
+                    ></i>
+                ) : location.pathname.includes('/admin/update') ? (
+                    <i
+                        className="bi bi-arrow-left ps-4"
+                        onClick={() => {
+                            navigate('/admin');
                             fetchStatusAdmin();
                         }}
                     ></i>

@@ -4,16 +4,12 @@ import { StatusContext } from '../../contexts/StatusContext';
 import './orderdetail.css';
 
 function OrderDetailAdmin({ item }) {
-    const { fetchDetail, docsDetail, deleteOrder } = useContext(StatusContext);
+    const { deleteOrder } = useContext(StatusContext);
     const navigate = useNavigate();
     console.log(item);
 
     let unix_timestamp = item?.createdAt?.seconds;
     var date = new Date(unix_timestamp * 1000);
-
-    useEffect(() => {
-        fetchDetail(item.trackingNumber);
-    }, []);
 
     if (!item) {
         return <></>;
@@ -83,7 +79,7 @@ function OrderDetailAdmin({ item }) {
                     <div className="paymentdetail">
                         <div>Amount</div>
                         <div className="d-flex">
-                            <div>{item?.payment?.amount?.price}</div>
+                            <div>{item?.payment?.amount?.price} ฿</div>
                             <div
                                 className={
                                     item?.payment?.amount?.status
@@ -101,7 +97,7 @@ function OrderDetailAdmin({ item }) {
                     <div className="paymentdetail">
                         <div>freight</div>
                         <div className="d-flex">
-                            <div>{item?.payment?.tax?.price}</div>
+                            <div>{item?.payment?.tax?.price} ฿</div>
                             <div
                                 className={
                                     item?.payment?.tax?.status

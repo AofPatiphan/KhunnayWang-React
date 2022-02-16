@@ -15,30 +15,36 @@ function Admin() {
     return (
         <div className="adminpage">
             {/* Header */}
-            <div className="d-flex ps-4 mb-3">
-                <div
-                    className={`border-end pe-3 ${
-                        location.pathname === '/admin' ? 'head' : 'statusheader'
-                    }`}
-                    onClick={() => {
-                        navigate('/admin');
-                    }}
-                >
-                    Order
+            {location.pathname.includes('update') ? (
+                <></>
+            ) : (
+                <div className="d-flex ps-4 mb-3">
+                    <div
+                        className={`border-end pe-3 ${
+                            location.pathname === '/admin'
+                                ? 'head'
+                                : 'statusheader'
+                        }`}
+                        onClick={() => {
+                            navigate('/admin');
+                        }}
+                    >
+                        Order
+                    </div>
+                    <div
+                        className={`ps-3 ${
+                            location.pathname === '/admin/create'
+                                ? 'head'
+                                : 'statusheader'
+                        }`}
+                        onClick={() => {
+                            navigate('/admin/create');
+                        }}
+                    >
+                        Create
+                    </div>
                 </div>
-                <div
-                    className={`ps-3 ${
-                        location.pathname === '/admin/create'
-                            ? 'head'
-                            : 'statusheader'
-                    }`}
-                    onClick={() => {
-                        navigate('/admin/create');
-                    }}
-                >
-                    Create
-                </div>
-            </div>
+            )}
 
             {/* Content */}
             {location.pathname === '/admin/create' ? (
@@ -54,7 +60,6 @@ function Admin() {
                 </>
             ) : location.pathname.includes('/admin/update/') ? (
                 <>
-                    <CheckFormAdmin />
                     {docsAdmin.map((item) => {
                         return <UpdateForm item={item} key={item.id} />;
                     })}

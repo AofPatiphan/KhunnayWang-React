@@ -20,14 +20,7 @@ function OrderCard({ item }) {
             <div className="textdate">
                 Date : {String(date).slice(3, 11)}, {String(date).slice(11, 15)}
             </div>
-            <Link
-                to={
-                    location.pathname === '/admin'
-                        ? `/admin/${item.trackingNumber}`
-                        : `/detail/${item.trackingNumber}`
-                }
-                className="link"
-            >
+            <Link to={`/detail/${item.id}`} className="link">
                 Click for more details...
             </Link>
         </div>

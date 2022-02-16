@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { projectFirestore, timestamp } from '../firebase/config';
 
 const StatusContext = createContext();
@@ -23,6 +24,8 @@ function StatusContextProvider(props) {
     const [remark, setRemark] = useState('');
     const [username, setUsername] = useState('');
     const [tracking, setTracking] = useState('');
+
+    const navigate = useNavigate();
 
     const createData = {
         number: number,
@@ -49,28 +52,94 @@ function StatusContextProvider(props) {
             },
         },
         status: +status,
-        trackingNumber: trackingNumber,
-        remark: remark,
+        trackingNumber: `${trackingNumber ? trackingNumber : '-'}`,
+        remark: `${remark ? remark : '-'}`,
         createdAt: timestamp(),
         username: username,
     };
 
     const createOrder = async () => {
-        await projectFirestore.collection('order').add(createData);
-        setNumber('');
-        setBrand('');
-        setForr('');
-        setType('');
-        setColor('');
-        setQuantity('');
-        setAmountPrice('');
-        setAmountStatus('');
-        setFreightPrice('');
-        setFreightStatus('');
-        setStatus('');
-        setTrackingNumber('');
-        setRemark('');
-        setUsername('');
+        try {
+            if (!number) {
+                alert('Insert Number');
+                return;
+            }
+            if (!brand) {
+                alert('Insert Brand');
+                return;
+            }
+            if (!forr) {
+                alert('Insert For');
+                return;
+            }
+            if (!type) {
+                alert('Insert Type');
+                return;
+            }
+            if (!color) {
+                alert('Insert color');
+                return;
+            }
+            if (!quantity) {
+                alert('Insert quantity');
+                return;
+            }
+            if (!quantity) {
+                alert('Insert quantity');
+                return;
+            }
+            if (!amountPrice) {
+                alert('Insert Amount price');
+                return;
+            }
+            if (!quantity) {
+                alert('Insert quantity');
+                return;
+            }
+
+            if (!username) {
+                alert('Insert Username');
+                return;
+            }
+
+            const querySnapshot = await projectFirestore
+                .collection('order')
+                .where('username', '==', username)
+                .orderBy('createdAt', 'desc')
+                .get();
+            let numberTemp = true;
+            querySnapshot.forEach(async (doc) => {
+                if (doc.data().number === number) {
+                    return (numberTemp = false);
+                }
+                return numberTemp;
+            });
+            console.log(numberTemp);
+
+            if (!numberTemp) {
+                alert('Number is already exist');
+                return;
+            }
+
+            await projectFirestore.collection('order').add(createData);
+            setNumber('');
+            setBrand('');
+            setForr('');
+            setType('');
+            setColor('');
+            setQuantity('');
+            setAmountPrice('');
+            setAmountStatus('');
+            setFreightPrice('');
+            setFreightStatus('');
+            setStatus('');
+            setTrackingNumber('');
+            setRemark('');
+            setUsername('');
+            navigate('/admin');
+        } catch (error) {
+            console.log('Error getting documents: ', error);
+        }
     };
 
     const updateOrder = async (
@@ -108,6 +177,7 @@ function StatusContextProvider(props) {
                 remark: editRemark,
             });
         fetchStatusAdmin();
+        navigate('/admin');
     };
 
     const deleteOrder = async (id) => {
@@ -162,16 +232,18 @@ function StatusContextProvider(props) {
             });
     };
 
-    const fetchDetail = async (trackingNo) => {
+    const fetchDetail = async (orderId) => {
         projectFirestore
             .collection('order')
-            .where('trackingNumber', '==', trackingNo)
+            // .where('trackingNumber', '==', orderId)
             .get()
             .then((querySnapshot) => {
                 let documents = [];
 
                 querySnapshot.forEach((doc) => {
-                    documents = doc.data();
+                    if (doc.id === orderId) {
+                        documents = doc.data();
+                    }
                 });
                 setDocsDetail(documents);
             })
