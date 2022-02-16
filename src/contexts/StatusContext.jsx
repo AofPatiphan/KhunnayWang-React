@@ -77,6 +77,7 @@ function StatusContextProvider(props) {
         editAmountStatus,
         editFreightStatus,
         editStatus,
+        editTrackingNumber,
         editRemark,
         editamountPrice,
         editfreightPrice,
@@ -103,6 +104,7 @@ function StatusContextProvider(props) {
                     },
                 },
                 status: editStatus,
+                trackingNumber: editTrackingNumber,
                 remark: editRemark,
             });
         fetchStatusAdmin();
@@ -144,7 +146,8 @@ function StatusContextProvider(props) {
     const fetchStatusAdmin = async () => {
         projectFirestore
             .collection('order')
-            .where('trackingNumber', '==', tracking)
+            .where('username', '==', user)
+            .orderBy('createdAt', 'desc')
             .get()
             .then((querySnapshot) => {
                 let documents = [];

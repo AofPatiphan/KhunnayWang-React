@@ -1,20 +1,21 @@
 import React, { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { StatusContext } from '../../contexts/StatusContext';
 import './orderdetail.css';
 
 function OrderDetailAdmin({ item }) {
     const { fetchDetail, docsDetail, deleteOrder } = useContext(StatusContext);
-    // const location = useLocation();
+    const navigate = useNavigate();
+    console.log(item);
 
-    let unix_timestamp = docsDetail?.createdAt?.seconds;
+    let unix_timestamp = item?.createdAt?.seconds;
     var date = new Date(unix_timestamp * 1000);
 
     useEffect(() => {
         fetchDetail(item.trackingNumber);
     }, []);
 
-    if (!docsDetail) {
+    if (!item) {
         return <></>;
     }
 
@@ -22,8 +23,16 @@ function OrderDetailAdmin({ item }) {
         <div className="d-flex justify-content-center">
             <div className="detailcontainer">
                 <div className="headernumber">
-                    <div>NO.{docsDetail.number}</div>
-                    <div onClick={() => deleteOrder(item.id)}>Delete</div>
+                    <div>NO.{item.number}</div>
+                    <div className="d-flex">
+                        <div
+                            className="me-3"
+                            onClick={() => navigate(`/admin/update/${item.id}`)}
+                        >
+                            Edit
+                        </div>
+                        <div onClick={() => deleteOrder(item.id)}>Delete</div>
+                    </div>
                 </div>
                 <div className="headerorder">ORDER</div>
 
@@ -40,7 +49,7 @@ function OrderDetailAdmin({ item }) {
 
                 <div className="list">
                     <div>Brand</div>
-                    <div className="detail">{docsDetail.brand}</div>
+                    <div className="detail">{item.brand}</div>
                 </div>
 
                 {/* Description */}
@@ -50,26 +59,20 @@ function OrderDetailAdmin({ item }) {
                     </div>
                     <div className="sublist">
                         <div>For</div>
-                        <div className="detail">
-                            {docsDetail?.description?.for}
-                        </div>
+                        <div className="detail">{item?.description?.for}</div>
                     </div>
                     <div className="sublist">
                         <div>Type</div>
-                        <div className="detail">
-                            {docsDetail?.description?.type}
-                        </div>
+                        <div className="detail">{item?.description?.type}</div>
                     </div>
                     <div className="sublist">
                         <div>Color/Favor</div>
-                        <div className="detail">
-                            {docsDetail?.description?.color}
-                        </div>
+                        <div className="detail">{item?.description?.color}</div>
                     </div>
                     <div className="sublist">
                         <div>Qty</div>
                         <div className="detail">
-                            {docsDetail?.description?.quantity}
+                            {item?.description?.quantity}
                         </div>
                     </div>
                 </>
@@ -80,10 +83,10 @@ function OrderDetailAdmin({ item }) {
                     <div className="paymentdetail">
                         <div>Amount</div>
                         <div className="d-flex">
-                            <div>{docsDetail?.payment?.amount?.price}</div>
+                            <div>{item?.payment?.amount?.price}</div>
                             <div
                                 className={
-                                    docsDetail?.payment?.amount?.status
+                                    item?.payment?.amount?.status
                                         ? `checkedbutton`
                                         : `checkbutton`
                                 }
@@ -98,10 +101,10 @@ function OrderDetailAdmin({ item }) {
                     <div className="paymentdetail">
                         <div>freight</div>
                         <div className="d-flex">
-                            <div>{docsDetail?.payment?.tax?.price}</div>
+                            <div>{item?.payment?.tax?.price}</div>
                             <div
                                 className={
-                                    docsDetail?.payment?.tax?.status
+                                    item?.payment?.tax?.status
                                         ? `checkedbutton`
                                         : `checkbutton`
                                 }
@@ -123,15 +126,15 @@ function OrderDetailAdmin({ item }) {
                             className="slider"
                             style={{
                                 width: `${
-                                    docsDetail.status === 1
+                                    item.status === 1
                                         ? '0%'
-                                        : docsDetail.status === 2
+                                        : item.status === 2
                                         ? '25%'
-                                        : docsDetail.status === 3
+                                        : item.status === 3
                                         ? '50%'
-                                        : docsDetail.status === 4
+                                        : item.status === 4
                                         ? '75%'
-                                        : docsDetail.status === 5
+                                        : item.status === 5
                                         ? '100%'
                                         : ''
                                 }`,
@@ -147,9 +150,7 @@ function OrderDetailAdmin({ item }) {
                             style={{
                                 textAlign: 'center',
                                 color: `${
-                                    docsDetail.status > 1
-                                        ? '#738c72'
-                                        : '#42434730'
+                                    item.status > 1 ? '#738c72' : '#42434730'
                                 }`,
                             }}
                         >
@@ -162,9 +163,7 @@ function OrderDetailAdmin({ item }) {
                             style={{
                                 textAlign: 'center',
                                 color: `${
-                                    docsDetail.status > 2
-                                        ? '#738c72'
-                                        : '#42434730'
+                                    item.status > 2 ? '#738c72' : '#42434730'
                                 }`,
                             }}
                         >
@@ -177,9 +176,7 @@ function OrderDetailAdmin({ item }) {
                             style={{
                                 textAlign: 'center',
                                 color: `${
-                                    docsDetail.status > 3
-                                        ? '#738c72'
-                                        : '#42434730'
+                                    item.status > 3 ? '#738c72' : '#42434730'
                                 }`,
                             }}
                         >
@@ -190,9 +187,7 @@ function OrderDetailAdmin({ item }) {
                             style={{
                                 textAlign: 'center',
                                 color: `${
-                                    docsDetail.status > 4
-                                        ? '#738c72'
-                                        : '#42434730'
+                                    item.status > 4 ? '#738c72' : '#42434730'
                                 }`,
                             }}
                         >
@@ -205,9 +200,9 @@ function OrderDetailAdmin({ item }) {
                 {/* Tracking No. */}
                 <div>
                     <div className="headerordertracking">TRACKING NO.</div>
-                    <div>{docsDetail.trackingNumber}</div>
+                    <div>{item.trackingNumber}</div>
                     <div className="headerordertracking">REMARK</div>
-                    <div>{docsDetail.remark}</div>
+                    <div>{item.remark}</div>
                 </div>
             </div>
         </div>

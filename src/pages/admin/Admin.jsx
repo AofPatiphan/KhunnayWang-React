@@ -27,18 +27,6 @@ function Admin() {
                     Order
                 </div>
                 <div
-                    className={`border-end ps-3 pe-3  ${
-                        location.pathname === '/admin/update'
-                            ? 'head'
-                            : 'statusheader'
-                    }`}
-                    onClick={() => {
-                        navigate('/admin/update');
-                    }}
-                >
-                    update
-                </div>
-                <div
                     className={`ps-3 ${
                         location.pathname === '/admin/create'
                             ? 'head'
@@ -64,7 +52,7 @@ function Admin() {
                         return <OrderDetailAdmin item={item} key={item.id} />;
                     })}
                 </>
-            ) : location.pathname === '/admin/update' ? (
+            ) : location.pathname.includes('/admin/update/') ? (
                 <>
                     <CheckFormAdmin />
                     {docsAdmin.map((item) => {

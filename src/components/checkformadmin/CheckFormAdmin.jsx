@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { StatusContext } from '../../contexts/StatusContext';
 import './checkformadmin.css';
 
 function CheckFormAdmin() {
-    const { tracking, setTracking, fetchStatusAdmin } =
+    const { tracking, setTracking, fetchStatusAdmin, user, setUser } =
         useContext(StatusContext);
-    const navigate = useNavigate();
 
     const handleSubmitform = (e) => {
         e.preventDefault();
@@ -25,8 +23,8 @@ function CheckFormAdmin() {
                         width: '317px',
                         height: '56px',
                     }}
-                    value={tracking}
-                    onChange={(e) => setTracking(e.target.value)}
+                    value={user}
+                    onChange={(e) => setUser(e.target.value)}
                 />
             </div>
             <div>
