@@ -1,9 +1,10 @@
 import React from 'react';
 import './ordercard.css';
-import { Link } from 'react-router-dom';
-import timeSince from '../../services/timeSince';
+import { Link, useLocation } from 'react-router-dom';
 
 function OrderCard({ item }) {
+    const location = useLocation();
+
     let unix_timestamp = item?.createdAt?.seconds;
     var date = new Date(unix_timestamp * 1000);
 
@@ -19,7 +20,14 @@ function OrderCard({ item }) {
             <div className="textdate">
                 Date : {String(date).slice(3, 11)}, {String(date).slice(11, 15)}
             </div>
-            <Link to={`/detail/${item.trackingNumber}`} className="link">
+            <Link
+                to={
+                    location.pathname === '/admin'
+                        ? `/admin/${item.trackingNumber}`
+                        : `/detail/${item.trackingNumber}`
+                }
+                className="link"
+            >
                 Click for more details...
             </Link>
         </div>

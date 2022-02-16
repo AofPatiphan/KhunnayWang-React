@@ -9,7 +9,12 @@ function Home() {
         <div>
             <div className="d-flex ps-5">
                 <div className="border-end pe-3 head">Home</div>
-                <div className="ps-3 statusheader">Status</div>
+                <div
+                    className="ps-3 statusheader"
+                    onClick={() => navigate('/status')}
+                >
+                    Status
+                </div>
             </div>
             <div className="d-flex flex-column align-items-center logocontainer">
                 <div className="appname">KHUNNAYWANG</div>

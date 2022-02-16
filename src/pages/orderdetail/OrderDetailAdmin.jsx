@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { StatusContext } from '../../contexts/StatusContext';
 import './orderdetail.css';
 
-function OrderDetail() {
+function OrderDetailAdmin({ item }) {
     const { fetchDetail, docsDetail } = useContext(StatusContext);
     const location = useLocation();
 
@@ -11,7 +11,7 @@ function OrderDetail() {
     var date = new Date(unix_timestamp * 1000);
 
     useEffect(() => {
-        fetchDetail(location.pathname.split('/')[2]);
+        fetchDetail(item.trackingNumber);
     }, []);
 
     if (!docsDetail) {
@@ -211,4 +211,4 @@ function OrderDetail() {
     );
 }
 
-export default OrderDetail;
+export default OrderDetailAdmin;

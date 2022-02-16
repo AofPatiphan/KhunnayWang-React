@@ -1,0 +1,14 @@
+.adminpage {
+    padding: 0 0 20px 0;
+}
+
+.submitdata {
+    background-color: #738c72;
+    border-radius: 15px;
+    width: 145px;
+    height: 58px;
+    color: aliceblue;
+    font-size: 16px;
+    box-shadow: 0px 8px 14px -2px grey;
+    text-align: center;
+}

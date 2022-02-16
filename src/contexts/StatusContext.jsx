@@ -5,47 +5,82 @@ const StatusContext = createContext();
 
 function StatusContextProvider(props) {
     const [docs, setDocs] = useState([]);
+    const [docsAdmin, setDocsAdmin] = useState([]);
     const [docsDetail, setDocsDetail] = useState([]);
     const [user, setUser] = useState('');
+    const [number, setNumber] = useState('');
+    const [brand, setBrand] = useState('');
+    const [forr, setForr] = useState('');
+    const [type, setType] = useState('');
+    const [color, setColor] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [amountPrice, setAmountPrice] = useState('');
+    const [amountStatus, setAmountStatus] = useState('');
+    const [freightPrice, setFreightPrice] = useState('');
+    const [freightStatus, setFreightStatus] = useState('');
+    const [status, setStatus] = useState('');
+    const [trackingNumber, setTrackingNumber] = useState('');
+    const [remark, setRemark] = useState('');
+    const [username, setUsername] = useState('');
+    const [tracking, setTracking] = useState('');
+    // const [userId, setUserId] = useState('');
 
     const testData = {
-        number: 1,
+        number: number,
         date: new Date(),
-        brand: 'Iphone',
+        brand: brand,
         description: {
-            for: 'WYB',
-            type: 'โทรศัพท์',
-            color: 'แดง',
-            quantity: '1 Ea',
+            for: forr,
+            type: type,
+            color: color,
+            quantity: quantity,
         },
         payment: {
-            amount: { price: 40000, status: true },
-            tax: { price: 400, status: true },
+            amount: { price: amountPrice, status: amountStatus },
+            tax: { price: freightPrice, status: freightStatus },
         },
-        status: 4,
-        trackingNumber: 'TH2395234234',
-        remark: 'remark',
+        status: status,
+        trackingNumber: trackingNumber,
+        remark: remark,
         createdAt: timestamp(),
-        userId: '2bfS3EPU3d5XyzU4wutd',
+        username: username,
     };
-    // projectFirestore.collection('order').add(testData);
+
+    const createOrder = async () => {
+        await projectFirestore.collection('order').add(testData);
+        setNumber('');
+        setBrand('');
+        setForr('');
+        setType('');
+        setColor('');
+        setQuantity('');
+        setAmountPrice('');
+        setAmountStatus('');
+        setFreightPrice('');
+        setFreightStatus('');
+        setStatus('');
+        setTrackingNumber('');
+        setRemark('');
+        setUsername('');
+    };
+
+    const updateOrder = async () => {};
 
     const fetchStatus = async () => {
-        let userIdTemp = '';
+        // let userIdTemp = '';
 
-        const querySnapshot = await projectFirestore
-            .collection('users')
-            .where('name', '==', user)
-            .get();
+        // const querySnapshot = await projectFirestore
+        //     .collection('users')
+        //     .where('name', '==', user)
+        //     .get();
 
-        querySnapshot.forEach((doc) => {
-            userIdTemp = doc.id;
-        });
+        // querySnapshot.forEach((doc) => {
+        //     userIdTemp = doc.id;
+        // });
 
-        console.log('userId: ', userIdTemp);
         projectFirestore
             .collection('order')
-            .where('userId', '==', userIdTemp)
+            .where('username', '==', user)
             .get()
             .then((querySnapshot) => {
                 let documents = [];
@@ -54,6 +89,24 @@ function StatusContextProvider(props) {
                     documents.push({ ...doc.data(), id: doc.id });
                 });
                 setDocs(documents);
+            })
+            .catch((error) => {
+                console.log('Error getting documents: ', error);
+            });
+    };
+
+    const fetchStatusAdmin = async () => {
+        projectFirestore
+            .collection('order')
+            .where('trackingNumber', '==', tracking)
+            .get()
+            .then((querySnapshot) => {
+                let documents = [];
+
+                querySnapshot.forEach((doc) => {
+                    documents.push({ ...doc.data(), id: doc.id });
+                });
+                setDocsAdmin(documents);
             })
             .catch((error) => {
                 console.log('Error getting documents: ', error);
@@ -78,17 +131,49 @@ function StatusContextProvider(props) {
             });
     };
 
-    console.log(docsDetail);
-
     return (
         <StatusContext.Provider
             value={{
                 fetchStatus,
+                fetchStatusAdmin,
                 user,
                 setUser,
                 docs,
+                docsAdmin,
                 fetchDetail,
                 docsDetail,
+                number,
+                setNumber,
+                brand,
+                setBrand,
+                forr,
+                setForr,
+                type,
+                setType,
+                color,
+                setColor,
+                quantity,
+                setQuantity,
+                amountPrice,
+                setAmountPrice,
+                amountStatus,
+                setAmountStatus,
+                freightPrice,
+                setFreightPrice,
+                freightStatus,
+                setFreightStatus,
+                status,
+                setStatus,
+                trackingNumber,
+                setTrackingNumber,
+                remark,
+                setRemark,
+                username,
+                setUsername,
+                createOrder,
+                updateOrder,
+                tracking,
+                setTracking,
             }}
         >
             {props.children}
