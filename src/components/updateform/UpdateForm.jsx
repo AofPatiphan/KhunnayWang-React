@@ -1,29 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StatusContext } from '../../contexts/StatusContext';
 import './updateform.css';
 
-function UpdateForm() {
-    const [editAmountStatus, setEditAmountStatus] = useState('');
-    const [editFreightStatus, setEditFreightStatus] = useState('');
-    const [editStatus, setEditStatus] = useState('');
-    const [editRemark, setEditRemark] = useState('');
+function UpdateForm({ item }) {
+    const [editAmountStatus, setEditAmountStatus] = useState(
+        item.payment.amount.status
+    );
+    const [editFreightStatus, setEditFreightStatus] = useState(
+        item.payment.tax.status
+    );
+    const [editStatus, setEditStatus] = useState(item.status);
+    const [editRemark, setEditRemark] = useState(item.remark);
 
     const { updateOrder } = useContext(StatusContext);
-
-    console.log(docsAdmin);
 
     const handleSubmitform = (e) => {
         e.preventDefault();
         updateOrder(
             editAmountStatus,
             editFreightStatus,
-            editStatus,
-            editRemark
+            +editStatus,
+            editRemark,
+            item.payment.amount.price,
+            item.payment.tax.price,
+            item.id
         );
     };
     return (
         <form className="checkform" onSubmit={handleSubmitform}>
             <div className="mb-3">
+                <label>Amount status :</label>
                 <input
                     type="text"
                     className="form-control"
@@ -38,6 +44,7 @@ function UpdateForm() {
                 />
             </div>
             <div className="mb-3">
+                <label>Freight status :</label>
                 <input
                     type="text"
                     className="form-control"
@@ -52,8 +59,9 @@ function UpdateForm() {
                 />
             </div>
             <div className="mb-3">
+                <label>Order status :</label>
                 <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     placeholder="order status"
                     style={{
@@ -66,6 +74,7 @@ function UpdateForm() {
                 />
             </div>
             <div className="mb-3">
+                <label>Remark :</label>
                 <input
                     type="text"
                     className="form-control"

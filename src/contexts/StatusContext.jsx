@@ -23,9 +23,8 @@ function StatusContextProvider(props) {
     const [remark, setRemark] = useState('');
     const [username, setUsername] = useState('');
     const [tracking, setTracking] = useState('');
-    // const [userId, setUserId] = useState('');
 
-    const testData = {
+    const createData = {
         number: number,
         date: new Date(),
         brand: brand,
@@ -36,10 +35,20 @@ function StatusContextProvider(props) {
             quantity: quantity,
         },
         payment: {
-            amount: { price: amountPrice, status: amountStatus },
-            tax: { price: freightPrice, status: freightStatus },
+            amount: {
+                price: amountPrice,
+                status: !!(amountStatus === 'true' || amountStatus === true
+                    ? 1
+                    : 0),
+            },
+            tax: {
+                price: freightPrice,
+                status: !!(freightStatus === 'true' || freightStatus === true
+                    ? 1
+                    : 0),
+            },
         },
-        status: status,
+        status: +status,
         trackingNumber: trackingNumber,
         remark: remark,
         createdAt: timestamp(),
@@ -47,7 +56,7 @@ function StatusContextProvider(props) {
     };
 
     const createOrder = async () => {
-        await projectFirestore.collection('order').add(testData);
+        await projectFirestore.collection('order').add(createData);
         setNumber('');
         setBrand('');
         setForr('');
@@ -64,7 +73,45 @@ function StatusContextProvider(props) {
         setUsername('');
     };
 
-    const updateOrder = async () => {};
+    const updateOrder = async (
+        editAmountStatus,
+        editFreightStatus,
+        editStatus,
+        editRemark,
+        editamountPrice,
+        editfreightPrice,
+        id
+    ) => {
+        await projectFirestore
+            .collection('order')
+            .doc(id)
+            .update({
+                payment: {
+                    amount: {
+                        price: editamountPrice,
+                        status: !!(editAmountStatus === 'true' ||
+                        editAmountStatus === true
+                            ? 1
+                            : 0),
+                    },
+                    tax: {
+                        price: editfreightPrice,
+                        status: !!(editFreightStatus === 'true' ||
+                        editFreightStatus === true
+                            ? 1
+                            : 0),
+                    },
+                },
+                status: editStatus,
+                remark: editRemark,
+            });
+        fetchStatusAdmin();
+    };
+
+    const deleteOrder = async (id) => {
+        await projectFirestore.collection('order').doc(id).delete();
+        fetchStatusAdmin();
+    };
 
     const fetchStatus = async () => {
         // let userIdTemp = '';
@@ -77,22 +124,21 @@ function StatusContextProvider(props) {
         // querySnapshot.forEach((doc) => {
         //     userIdTemp = doc.id;
         // });
+        try {
+            const querySnapshot = await projectFirestore
+                .collection('order')
+                .where('username', '==', user)
+                .orderBy('createdAt', 'desc')
+                .get();
 
-        projectFirestore
-            .collection('order')
-            .where('username', '==', user)
-            .get()
-            .then((querySnapshot) => {
-                let documents = [];
-
-                querySnapshot.forEach((doc) => {
-                    documents.push({ ...doc.data(), id: doc.id });
-                });
-                setDocs(documents);
-            })
-            .catch((error) => {
-                console.log('Error getting documents: ', error);
+            let documents = [];
+            querySnapshot.forEach((doc) => {
+                documents.push({ ...doc.data(), id: doc.id });
             });
+            setDocs(documents);
+        } catch (error) {
+            console.log('Error getting documents: ', error);
+        }
     };
 
     const fetchStatusAdmin = async () => {
@@ -174,6 +220,7 @@ function StatusContextProvider(props) {
                 updateOrder,
                 tracking,
                 setTracking,
+                deleteOrder,
             }}
         >
             {props.children}

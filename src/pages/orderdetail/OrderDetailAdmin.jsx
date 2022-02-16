@@ -4,8 +4,8 @@ import { StatusContext } from '../../contexts/StatusContext';
 import './orderdetail.css';
 
 function OrderDetailAdmin({ item }) {
-    const { fetchDetail, docsDetail } = useContext(StatusContext);
-    const location = useLocation();
+    const { fetchDetail, docsDetail, deleteOrder } = useContext(StatusContext);
+    // const location = useLocation();
 
     let unix_timestamp = docsDetail?.createdAt?.seconds;
     var date = new Date(unix_timestamp * 1000);
@@ -21,7 +21,10 @@ function OrderDetailAdmin({ item }) {
     return (
         <div className="d-flex justify-content-center">
             <div className="detailcontainer">
-                <div className="headernumber">NO.{docsDetail.number}</div>
+                <div className="headernumber">
+                    <div>NO.{docsDetail.number}</div>
+                    <div onClick={() => deleteOrder(item.id)}>Delete</div>
+                </div>
                 <div className="headerorder">ORDER</div>
 
                 {/* Date */}

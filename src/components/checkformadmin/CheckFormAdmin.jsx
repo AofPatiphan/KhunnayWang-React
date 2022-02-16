@@ -11,7 +11,6 @@ function CheckFormAdmin() {
     const handleSubmitform = (e) => {
         e.preventDefault();
         fetchStatusAdmin();
-        setTracking('');
     };
 
     return (

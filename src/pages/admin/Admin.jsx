@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckFormAdmin from '../../components/checkformadmin/CheckFormAdmin';
 import CreateForm from '../../components/createform/CreateForm';
+import UpdateForm from '../../components/updateform/UpdateForm';
 import { StatusContext } from '../../contexts/StatusContext';
 import OrderDetailAdmin from '../orderdetail/OrderDetailAdmin';
 import './admin.css';
@@ -13,6 +14,7 @@ function Admin() {
 
     return (
         <div className="adminpage">
+            {/* Header */}
             <div className="d-flex ps-4 mb-3">
                 <div
                     className={`border-end pe-3 ${
@@ -23,6 +25,18 @@ function Admin() {
                     }}
                 >
                     Order
+                </div>
+                <div
+                    className={`border-end ps-3 pe-3  ${
+                        location.pathname === '/admin/update'
+                            ? 'head'
+                            : 'statusheader'
+                    }`}
+                    onClick={() => {
+                        navigate('/admin/update');
+                    }}
+                >
+                    update
                 </div>
                 <div
                     className={`ps-3 ${
@@ -37,6 +51,8 @@ function Admin() {
                     Create
                 </div>
             </div>
+
+            {/* Content */}
             {location.pathname === '/admin/create' ? (
                 <>
                     <CreateForm />
@@ -46,6 +62,13 @@ function Admin() {
                     <CheckFormAdmin />
                     {docsAdmin.map((item) => {
                         return <OrderDetailAdmin item={item} key={item.id} />;
+                    })}
+                </>
+            ) : location.pathname === '/admin/update' ? (
+                <>
+                    <CheckFormAdmin />
+                    {docsAdmin.map((item) => {
+                        return <UpdateForm item={item} key={item.id} />;
                     })}
                 </>
             ) : (

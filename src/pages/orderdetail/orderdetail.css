@@ -8,6 +8,8 @@
 }
 
 .headernumber {
+    display: flex;
+    justify-content: space-between;
     color: #566738;
     font-weight: 800;
     margin-bottom: 20px;

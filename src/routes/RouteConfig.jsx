@@ -12,6 +12,7 @@ const routes = [
     { path: '/detail/:trackingNumber', element: <OrderDetail /> },
     { path: '/admin', element: <Admin /> },
     { path: '/admin/create', element: <Admin /> },
+    { path: '/admin/update', element: <Admin /> },
     { path: '/admin/:trackingNumber', element: <Admin /> },
     { path: '*', element: <Navigate to="/" replace={true} /> },
 ];
