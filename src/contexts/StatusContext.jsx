@@ -122,6 +122,7 @@ function StatusContextProvider(props) {
             }
 
             await projectFirestore.collection('order').add(createData);
+            await fetchStatusAdmin();
             setNumber('');
             setBrand('');
             setForr('');
