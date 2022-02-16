@@ -14,10 +14,11 @@ function CheckFormAdmin() {
     return (
         <form className="checkform" onSubmit={handleSubmitform}>
             <div className="mb-3">
+                <label className="pt-2 pb-3">Customer account :</label>
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="Tracking No."
+                    placeholder="@example"
                     style={{
                         borderRadius: '12px',
                         width: '317px',
