@@ -93,7 +93,7 @@ function OrderDetail() {
                         </div>
                     </div>
                     <div className="paymentdetail">
-                        <div>freight</div>
+                        <div>Freight</div>
                         <div className="d-flex">
                             <div>{docsDetail?.payment?.tax?.price} ฿</div>
                             <div
@@ -121,9 +121,9 @@ function OrderDetail() {
                             style={{
                                 width: `${
                                     docsDetail.status === 1
-                                        ? '0%'
+                                        ? '10%'
                                         : docsDetail.status === 2
-                                        ? '25%'
+                                        ? '28%'
                                         : docsDetail.status === 3
                                         ? '50%'
                                         : docsDetail.status === 4
@@ -136,7 +136,13 @@ function OrderDetail() {
                         ></div>
                     </div>
                     <div className="d-flex justify-content-between">
-                        <div style={{ textAlign: 'center', color: `#738c72` }}>
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                color: `#738c72`,
+                                width: '56.07px',
+                            }}
+                        >
                             <i className="bi bi-cart statusicon"></i>
                             <p className="statuslabel">Ordered</p>
                         </div>
@@ -148,11 +154,12 @@ function OrderDetail() {
                                         ? '#738c72'
                                         : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-house statusicon"></i>
                             <p className="statuslabel">
-                                China’s <br /> warehose
+                                China’s <br /> warehouse
                             </p>
                         </div>
                         <div
@@ -163,6 +170,7 @@ function OrderDetail() {
                                         ? '#738c72'
                                         : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-house statusicon"></i>
@@ -178,6 +186,7 @@ function OrderDetail() {
                                         ? '#738c72'
                                         : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-geo-alt statusicon"></i>
@@ -191,6 +200,7 @@ function OrderDetail() {
                                         ? '#738c72'
                                         : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-person-fill statusicon"></i>

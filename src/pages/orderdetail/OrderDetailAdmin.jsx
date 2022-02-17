@@ -95,7 +95,7 @@ function OrderDetailAdmin({ item }) {
                         </div>
                     </div>
                     <div className="paymentdetail">
-                        <div>freight</div>
+                        <div>Freight</div>
                         <div className="d-flex">
                             <div>{item?.payment?.tax?.price} ฿</div>
                             <div
@@ -123,13 +123,13 @@ function OrderDetailAdmin({ item }) {
                             style={{
                                 width: `${
                                     item.status === 1
-                                        ? '0%'
+                                        ? '12%'
                                         : item.status === 2
-                                        ? '25%'
+                                        ? '30%'
                                         : item.status === 3
                                         ? '50%'
                                         : item.status === 4
-                                        ? '75%'
+                                        ? '70%'
                                         : item.status === 5
                                         ? '100%'
                                         : ''
@@ -137,8 +137,14 @@ function OrderDetailAdmin({ item }) {
                             }}
                         ></div>
                     </div>
-                    <div className="d-flex justify-content-between">
-                        <div style={{ textAlign: 'center', color: `#738c72` }}>
+                    <div className="d-flex justify-content-evenly">
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                color: `#738c72`,
+                                width: '56.07px',
+                            }}
+                        >
                             <i className="bi bi-cart statusicon"></i>
                             <p className="statuslabel">Ordered</p>
                         </div>
@@ -148,11 +154,12 @@ function OrderDetailAdmin({ item }) {
                                 color: `${
                                     item.status > 1 ? '#738c72' : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-house statusicon"></i>
                             <p className="statuslabel">
-                                China’s <br /> warehose
+                                China’s <br /> warehouse
                             </p>
                         </div>
                         <div
@@ -161,6 +168,7 @@ function OrderDetailAdmin({ item }) {
                                 color: `${
                                     item.status > 2 ? '#738c72' : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-house statusicon"></i>
@@ -174,6 +182,7 @@ function OrderDetailAdmin({ item }) {
                                 color: `${
                                     item.status > 3 ? '#738c72' : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-geo-alt statusicon"></i>
@@ -185,6 +194,7 @@ function OrderDetailAdmin({ item }) {
                                 color: `${
                                     item.status > 4 ? '#738c72' : '#42434730'
                                 }`,
+                                width: '56.07px',
                             }}
                         >
                             <i className="bi bi-person-fill statusicon"></i>
